@@ -22,7 +22,7 @@ for file in $1/*; do
 	if [ -f $file ] && [ ${#s} == 4 ]; then
 		g=${s:0:2}
 		s=${s:2:2}
-		cp -v $file "/home/student${g}${s}/korrektur/${1}"
+		cp -uv $file "/home/student${g}${s}/korrektur/${1}"
 	else
 		echo "ignoring: " $file
 	fi
