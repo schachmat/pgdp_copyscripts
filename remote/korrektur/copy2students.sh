@@ -16,13 +16,26 @@ if [ ! -d $kor/$1 ]; then
 	exit 1
 fi
 
-# copy the files to the students folders
+# copy corrections to students
 for file in $1/*; do
 	s=${file##*/}
 	if [ -f $file ] && [ ${#s} == 4 ]; then
 		g=${s:0:2}
 		s=${s:2:2}
-		cp -uv $file "/home/student${g}${s}/korrektur/${1}"
+		cp -v $file "/home/student${g}${s}/korrektur/${1}"
+	else
+		echo "ignoring: " $file
+	fi
+done
+
+# update status files
+for file in studstat*; do
+	s=${file##*/}
+	s=${s/#studstat}
+	if [ -f $file ] && [ ${#s} == 4 ]; then
+		g=${s:0:2}
+		s=${s:2:2}
+		cp -v $file "/home/student${g}${s}/korrektur/status"
 	else
 		echo "ignoring: " $file
 	fi
